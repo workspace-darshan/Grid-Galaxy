@@ -28,7 +28,7 @@ function App() {
         duration: 1.5,
         stagger: 0.08,
         ease: 'power3.out',
-        delay: 0.5
+        delay: 0.3
       });
 
       gsap.from('.grid-line-v', {
@@ -36,25 +36,47 @@ function App() {
         duration: 1.5,
         stagger: 0.08,
         ease: 'power3.out',
-        delay: 0.7
+        delay: 0.5
       });
 
-      gsap.from('.hero-text', {
+      // Hero boxes animation
+      gsap.from('.hero-box', {
+        scale: 0,
+        rotation: 180,
+        duration: 1.2,
+        stagger: 0.1,
+        ease: 'back.out(1.7)',
+        delay: 0.8
+      });
+
+      // Hero letters animation
+      gsap.from('.hero-letter', {
         opacity: 0,
-        y: 100,
-        rotationX: 90,
-        duration: 1.5,
+        y: 150,
+        rotationX: -90,
+        z: -500,
+        duration: 1.2,
+        stagger: 0.1,
         ease: 'power3.out',
-        delay: 1.8
+        delay: 1.5
       });
 
-      // Pulsing animation on hero text
-      gsap.to('.hero-text', {
-        scale: 1.02,
-        duration: 2,
-        ease: 'sine.inOut',
-        repeat: -1,
-        yoyo: true
+      gsap.from('.hero-subtitle', {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        ease: 'power2.out',
+        delay: 2.5
+      });
+
+      // Particles animation
+      gsap.from('.particle', {
+        opacity: 0,
+        scale: 0,
+        duration: 1,
+        stagger: 0.05,
+        ease: 'power2.out',
+        delay: 1
       });
 
       // Foundation Section
@@ -227,7 +249,88 @@ function App() {
         },
         y: 300,
         scale: 0.8,
-        opacity: 0.5
+        opacity: 0.3,
+        rotationX: -45
+      });
+
+      gsap.to('.hero-boxes', {
+        scrollTrigger: {
+          trigger: '.hero-section',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true
+        },
+        rotation: 180,
+        scale: 0.5,
+        opacity: 0
+      });
+
+      // Glitch Section
+      gsap.to('.glitch-text', {
+        scrollTrigger: {
+          trigger: '.glitch-section',
+          start: 'top center',
+          end: 'bottom center',
+          scrub: 1
+        },
+        x: () => Math.random() * 20 - 10,
+        duration: 0.1
+      });
+
+      gsap.to('.glitch-bar', {
+        scrollTrigger: {
+          trigger: '.glitch-section',
+          start: 'top 60%',
+          end: 'bottom 40%',
+          scrub: 1
+        },
+        x: (_i, target) => {
+          const index = Array.from(document.querySelectorAll('.glitch-bar')).indexOf(target);
+          return index % 2 === 0 ? 100 : -100;
+        },
+        scaleX: () => 0.5 + Math.random() * 1.5,
+        stagger: 0.02
+      });
+
+      // Spiral Section
+      gsap.to('.spiral-element', {
+        scrollTrigger: {
+          trigger: '.spiral-section',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1
+        },
+        rotation: 720,
+        scale: (i) => 0.5 + (i / 60),
+        stagger: 0.01
+      });
+
+      gsap.to('.spiral-text', {
+        scrollTrigger: {
+          trigger: '.spiral-section',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1
+        },
+        rotation: 360,
+        scale: 1.5
+      });
+
+      // Magnetic Section
+      gsap.to('.magnetic-item', {
+        scrollTrigger: {
+          trigger: '.magnetic-section',
+          start: 'top center',
+          end: 'bottom center',
+          scrub: 1
+        },
+        x: () => (Math.random() - 0.5) * 400,
+        y: () => (Math.random() - 0.5) * 400,
+        scale: (i) => {
+          const centerDist = Math.abs(i - 40);
+          return 1 + (1 - centerDist / 40);
+        },
+        stagger: 0.01
       });
 
       // Grid lines fade on scroll
@@ -705,6 +808,128 @@ function App() {
         ease: 'none'
       });
 
+      // Kaleidoscope Section
+      gsap.to('.kaleidoscope-segment', {
+        scrollTrigger: {
+          trigger: '.kaleidoscope-section',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1
+        },
+        rotation: 360,
+        stagger: 0.1
+      });
+
+      gsap.to('.pattern-piece', {
+        scrollTrigger: {
+          trigger: '.kaleidoscope-section',
+          start: 'top center',
+          end: 'bottom center',
+          scrub: 1
+        },
+        scale: (i) => 1 + (i % 3) * 0.3,
+        rotation: (i) => i * 45,
+        stagger: 0.05
+      });
+
+      // Fracture Section
+      gsap.to('.fracture-piece', {
+        scrollTrigger: {
+          trigger: '.fracture-section',
+          start: 'center center',
+          end: 'bottom top',
+          scrub: 1
+        },
+        x: (i) => Math.cos((i / 20) * Math.PI * 2) * 500,
+        y: (i) => Math.sin((i / 20) * Math.PI * 2) * 500,
+        rotation: (i) => i * 18,
+        scale: 0.3,
+        opacity: 0.5
+      });
+
+      // Ripple Section
+      gsap.from('.ripple-circle', {
+        scrollTrigger: {
+          trigger: '.ripple-section',
+          start: 'top 70%',
+          end: 'bottom 30%',
+          toggleActions: 'play none none reverse'
+        },
+        scale: 0,
+        opacity: 1,
+        stagger: 0.08,
+        duration: 1.5,
+        ease: 'power2.out'
+      });
+
+      // Zipper Section
+      gsap.to('.zipper-tooth-left', {
+        scrollTrigger: {
+          trigger: '.zipper-section',
+          start: 'top center',
+          end: 'bottom center',
+          scrub: 1
+        },
+        x: 100,
+        rotation: 15,
+        stagger: 0.05
+      });
+
+      gsap.to('.zipper-tooth-right', {
+        scrollTrigger: {
+          trigger: '.zipper-section',
+          start: 'top center',
+          end: 'bottom center',
+          scrub: 1
+        },
+        x: -100,
+        rotation: -15,
+        stagger: 0.05
+      });
+
+      // Constellation Section
+      gsap.from('.constellation-node', {
+        scrollTrigger: {
+          trigger: '.constellation-section',
+          start: 'top 60%',
+          end: 'bottom 40%',
+          toggleActions: 'play none none reverse'
+        },
+        scale: 0,
+        opacity: 0,
+        stagger: 0.05,
+        duration: 1,
+        ease: 'back.out(1.7)'
+      });
+
+      gsap.from('.constellation-line', {
+        scrollTrigger: {
+          trigger: '.constellation-section',
+          start: 'top 60%',
+          end: 'bottom 40%',
+          toggleActions: 'play none none reverse'
+        },
+        strokeDashoffset: 100,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 1.2,
+        ease: 'power2.out',
+        delay: 0.5
+      });
+
+      // Accordion Section
+      gsap.to('.accordion-panel', {
+        scrollTrigger: {
+          trigger: '.accordion-section',
+          start: 'top center',
+          end: 'bottom center',
+          scrub: 1
+        },
+        scaleX: (i) => 0.1 + (Math.abs(i - 6) / 6) * 0.9,
+        opacity: (i) => 0.3 + (Math.abs(i - 6) / 6) * 0.7,
+        stagger: 0.05
+      });
+
     }, containerRef);
 
     return () => ctx.revert();
@@ -732,6 +957,14 @@ function App() {
       
       {/* Opening Section - Grid Construction */}
       <section className="hero-section">
+        {/* Animated particles */}
+        <div className="hero-particles">
+          {[...Array(30)].map((_, i) => (
+            <div key={i} className="particle" style={{ '--particle-index': i } as React.CSSProperties} />
+          ))}
+        </div>
+        
+        {/* Main grid overlay */}
         <div className="grid-overlay">
           {[...Array(8)].map((_, i) => (
             <div key={`h-${i}`} className="grid-line" style={{ top: `${(i + 1) * 11.11}%` }} />
@@ -740,11 +973,65 @@ function App() {
             <div key={`v-${i}`} className="grid-line-v" style={{ left: `${(i + 1) * 14.28}%` }} />
           ))}
         </div>
+
+        {/* Dynamic expanding boxes */}
+        <div className="hero-boxes">
+          {[...Array(9)].map((_, i) => (
+            <div key={i} className="hero-box" style={{ '--box-index': i } as React.CSSProperties} />
+          ))}
+        </div>
+        
         <div className="hero-content">
           <h1 className="hero-text">
-            GRID
+            <span className="hero-letter">G</span>
+            <span className="hero-letter">R</span>
+            <span className="hero-letter">I</span>
+            <span className="hero-letter">D</span>
           </h1>
+          <div className="hero-subtitle">A Digital Experience</div>
         </div>
+
+        {/* Scanline effect */}
+        <div className="hero-scanline" />
+      </section>
+
+      {/* Glitch Section */}
+      <section className="glitch-section">
+        <div className="glitch-container">
+          <h2 className="glitch-text" data-text="DISTORT">DISTORT</h2>
+          <div className="glitch-bars">
+            {[...Array(50)].map((_, i) => (
+              <div key={i} className="glitch-bar" style={{ '--glitch-index': i } as React.CSSProperties} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Spiral Section */}
+      <section className="spiral-section">
+        <div className="spiral-container">
+          {[...Array(60)].map((_, i) => (
+            <div 
+              key={i} 
+              className="spiral-element" 
+              style={{ 
+                '--spiral-index': i,
+                '--total': 60 
+              } as React.CSSProperties} 
+            />
+          ))}
+        </div>
+        <div className="spiral-text">VORTEX</div>
+      </section>
+
+      {/* Magnetic Section */}
+      <section className="magnetic-section">
+        <div className="magnetic-grid">
+          {[...Array(80)].map((_, i) => (
+            <div key={i} className="magnetic-item" style={{ '--mag-index': i } as React.CSSProperties} />
+          ))}
+        </div>
+        <div className="magnetic-title">ATTRACT</div>
       </section>
 
       {/* Foundation Section */}
@@ -1020,6 +1307,109 @@ function App() {
           ))}
         </div>
         <div className="wave-title">FLOW</div>
+      </section>
+
+      {/* Kaleidoscope Section */}
+      <section className="kaleidoscope-section">
+        <div className="kaleidoscope-container">
+          {[...Array(8)].map((_, i) => (
+            <div key={i} className="kaleidoscope-segment" style={{ '--segment-index': i } as React.CSSProperties}>
+              <div className="segment-pattern">
+                {[...Array(16)].map((_, j) => (
+                  <div key={j} className="pattern-piece" />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="kaleidoscope-title">REFLECT</div>
+      </section>
+
+      {/* Fracture Section */}
+      <section className="fracture-section">
+        <div className="fracture-text">FRACTURE</div>
+        <svg className="fracture-svg" viewBox="0 0 1000 1000">
+          <defs>
+            <clipPath id="fracture-clip">
+              {[...Array(20)].map((_, i) => {
+                const angle = (i / 20) * Math.PI * 2;
+                const x = 500 + Math.cos(angle) * 400;
+                const y = 500 + Math.sin(angle) * 400;
+                return <polygon key={i} points={`500,500 ${x},${y} ${500 + Math.cos(angle + 0.3) * 400},${500 + Math.sin(angle + 0.3) * 400}`} />;
+              })}
+            </clipPath>
+          </defs>
+        </svg>
+        <div className="fracture-pieces">
+          {[...Array(20)].map((_, i) => (
+            <div key={i} className="fracture-piece" style={{ '--frac-index': i } as React.CSSProperties} />
+          ))}
+        </div>
+      </section>
+
+      {/* Ripple Section */}
+      <section className="ripple-section">
+        <div className="ripple-container">
+          {[...Array(20)].map((_, i) => (
+            <div key={i} className="ripple-circle" style={{ '--ripple-index': i } as React.CSSProperties} />
+          ))}
+        </div>
+        <div className="ripple-text">ECHO</div>
+      </section>
+
+      {/* Zipper Section */}
+      <section className="zipper-section">
+        <div className="zipper-left">
+          {[...Array(15)].map((_, i) => (
+            <div key={i} className="zipper-tooth zipper-tooth-left" style={{ '--tooth-index': i } as React.CSSProperties} />
+          ))}
+        </div>
+        <div className="zipper-right">
+          {[...Array(15)].map((_, i) => (
+            <div key={i} className="zipper-tooth zipper-tooth-right" style={{ '--tooth-index': i } as React.CSSProperties} />
+          ))}
+        </div>
+        <div className="zipper-text">MERGE</div>
+      </section>
+
+      {/* Constellation Section */}
+      <section className="constellation-section">
+        <svg className="constellation-svg" viewBox="0 0 100 100">
+          {[...Array(30)].map((_, i) => (
+            <circle 
+              key={i} 
+              className="constellation-node" 
+              cx={Math.random() * 100} 
+              cy={Math.random() * 100} 
+              r="0.3"
+              style={{ '--node-index': i } as React.CSSProperties}
+            />
+          ))}
+          {[...Array(25)].map((_, i) => (
+            <line 
+              key={i}
+              className="constellation-line"
+              x1={Math.random() * 100}
+              y1={Math.random() * 100}
+              x2={Math.random() * 100}
+              y2={Math.random() * 100}
+              style={{ '--line-index': i } as React.CSSProperties}
+            />
+          ))}
+        </svg>
+        <div className="constellation-title">CONNECT</div>
+      </section>
+
+      {/* Accordion Section */}
+      <section className="accordion-section">
+        <div className="accordion-container">
+          {[...Array(12)].map((_, i) => (
+            <div key={i} className="accordion-panel" style={{ '--panel-index': i } as React.CSSProperties}>
+              <div className="accordion-content">{String(i + 1).padStart(2, '0')}</div>
+            </div>
+          ))}
+        </div>
+        <div className="accordion-title">COMPRESS</div>
       </section>
 
       {/* Closing Section */}
